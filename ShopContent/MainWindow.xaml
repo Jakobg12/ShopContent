@@ -8,7 +8,7 @@
         Height="450" 
         Width="800" 
         MinHeight="450" 
-        MinWidth="800" FontFamily="Centry Gothic" Icon="/Images/ic_shop.png">
+        MinWidth="800" FontFamily="Centry Gothic" Icon="/ic_shop.png">
     <Grid>
         <Frame x:Name="frame" NavigationUIVisibility="Hidden" Margin="5, 55, 5, 5" Background="#FFFAFAFA"/>
         <Grid VerticalAlignment="Top" Height="50" Background="White">
@@ -16,7 +16,7 @@
                 <DropShadowEffect Direction="270" BlurRadius="5" ShadowDepth="2" Opacity="0.5"/>
             </Grid.Effect>
             <Label Content="Вещи для дома" HorizontalAlignment="Center" VerticalContentAlignment="Center" FontSize="15pt"/>
-            <Image Width="30" Height="30" Margin="10" VerticalAlignment="Top" HorizontalAlignment="Left" Source="/Images/ic_shop.png" MouseDown="OpenIndex"/>
+            <Image Width="30" Height="30" Margin="10" VerticalAlignment="Top" HorizontalAlignment="Left" Source="/ic_shop.png" MouseDown="OpenIndex"/>
         </Grid>
     </Grid>
 </Window>

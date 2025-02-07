@@ -22,7 +22,7 @@ namespace ShopContent.Context
         {
             ObservableCollection<ItemsContext> allItems = new ObservableCollection<ItemsContext>();
             ObservableCollection<CategorysContext> allCategories = CategorysContext.AllCategorys();
-            SqlConnection connection;
+            SqlConnection connection = Connection.OpenConnection();
             SqlDataReader dataItems = Connection.Query("SELECT * FROM Items;", out connection);
             while (dataItems.Read())
             {
@@ -74,9 +74,13 @@ namespace ShopContent.Context
 
         public RelayCommand OnEdit
         {
+
             get
             {
-                return new RelayCommand(obj => { MainWindow.init.frame.Navigate(new View.Add(this)); });
+                return new RelayCommand(obj =>
+                {
+                    MainWindow.init.frame.Navigate(new View.Add(this));
+                });
             }
         }
 

@@ -18,12 +18,12 @@ namespace ShopContent.View
     /// </summary>
     public partial class Add : Page
     {
-        public Add(object Context)
+        public Add(object context)
         {
             InitializeComponent();
             DataContext = new
             {
-                item = Context,
+                item = context,
                 categorys = new ViewModell.VMCategorys()
             };
         }

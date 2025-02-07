@@ -22,7 +22,7 @@ namespace ShopContent.View
         public Main()
         {
             InitializeComponent();
-            this.DataContext = new VMItems();
+            DataContext = new VMItems();
         }
     }
 }
