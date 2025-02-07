@@ -9,13 +9,25 @@ namespace ShopContent.Modell
     public class Categories : INotifyPropertyChanged
     {
         private int id;
-        public int Id { get { return id; } set { id = value; OnPropertyChanged("Id"); } }
+        public int Id
+        {
+            get { return id; }
+            set
+            {
+                id = value;
+                OnPropertyChanged("Id");
+            }
+        }
 
         private string name;
         public string Name
         {
             get { return name; }
-            set { name = value; OnPropertyChanged("Name"); }
+            set
+            {
+                name = value;
+                OnPropertyChanged("Name");
+            }
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

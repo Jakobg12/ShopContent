@@ -14,13 +14,12 @@ namespace ShopContent.ViewModell
         {
             get
             {
-                return new Classes.RelayComma   nd(obj =>
+                return new Classes.RelayCommand(obj =>
                 {
                     Context.ItemsContext newModell = new Context.ItemsContext(true);
                     Items.Add(newModell);
-                    MainWindow.Instance.frame.Navigate(new View.Items.Add(newModell));
-                }
-                );
+                    MainWindow.init.frame.Navigate(new View.Add(newModell));
+                });
             }
         }
 

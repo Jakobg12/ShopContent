@@ -28,11 +28,6 @@ namespace ShopContent
             init = this;
             frame.Navigate(Main);
         }
-        private void OpenCategory(object sender, MouseButtonEventArgs e)
-        {
-            frame.Navigate(Main);
-        }
-
         private void OpenIndex(object sender, MouseButtonEventArgs e)
         {
             frame.Navigate(Main);

@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data.SqlClient;
+using System.Linq;
 using System.Text;
 
 namespace ShopContent.Context
@@ -31,10 +32,11 @@ namespace ShopContent.Context
                     Name = dataItems.GetString(1),
                     Price = dataItems.GetDouble(2),
                     Description = dataItems.GetString(3),
-                    Category = dataItems.IsDBNull(4) ? null : allCategories.Where(x => x.Id == dataItems.GetInt32(4)).First()
+                    Category = dataItems.IsDBNull(4) ?
+                    null :
+                    allCategories.Where(x => x.Id == dataItems.GetInt32(4)).First()
                 });
             }
-
             Connection.CloseConnection(connection);
             return allItems;
         }
@@ -53,9 +55,8 @@ namespace ShopContent.Context
                 Connection.Query("UPDATE [dbo].[Items] SET " +
                                  $"Name  = N'{this.Name}', Price = {this.Price}, Description = N'{this.Description}', IdCategory = {this.Category.Id} WHERE Id = {this.Id}", out connection);
             }
-
             Connection.CloseConnection(connection);
-            MainWindow.Instance.frame.Navigate(MainWindow.Instance.MainItems);
+            MainWindow.init.frame.Navigate(MainWindow.init.Main);
         }
 
         public void Delete()
@@ -69,7 +70,7 @@ namespace ShopContent.Context
         {
             get
             {
-                return new RelayCommand(obj => { MainWindow.Instance.frame.Navigate(new View.Items.Add(this)); });
+                return new RelayCommand(obj => { MainWindow.init.frame.Navigate(new View.Add(this)); });
             }
         }
 
@@ -92,7 +93,7 @@ namespace ShopContent.Context
                 return new RelayCommand(obj =>
                 {
                     Delete();
-                    (MainWindow.Instance.MainItems.DataContext as ViewModell.VMItems).Items.Remove(this);
+                    (MainWindow.init.Main.DataContext as ViewModell.VMItems).Items.Remove(this);
                 });
             }
         }
