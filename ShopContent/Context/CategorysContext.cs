@@ -8,24 +8,23 @@ using System.Text;
 
 namespace ShopContent.Context
 {
-    public class CategoriesContext : Categories
-    {
-        public static ObservableCollection<CategoriesContext> AllCategories()
+    public class CategorysContext : Categorys
+    {   
+        public static ObservableCollection<CategorysContext> AllCategorys()
         {
-            ObservableCollection<CategoriesContext> allCategories = new ObservableCollection<CategoriesContext>();
+            ObservableCollection<CategorysContext> allCategorys = new ObservableCollection<CategorysContext>();
             SqlConnection connection;
-            SqlDataReader dataCategories = Connection.Query("SELECT * FROM [dbo].[Categories]", out connection);
-            while (dataCategories.Read())
+            SqlDataReader dataCategorys = Connection.Query("SELECT * FROM Categorys", out connection);
+            while (dataCategorys.Read())
             {
-                allCategories.Add(new CategoriesContext()
+                allCategorys.Add(new CategorysContext()
                 {
-                    Id = dataCategories.GetInt32(0),
-                    Name = dataCategories.GetString(1)
+                    Id = dataCategorys.GetInt32(0),
+                    Name = dataCategorys.GetString(1)
                 });
             }
             Connection.CloseConnection(connection);
-            return allCategories;
+            return allCategorys;
         }
     }
-
 }

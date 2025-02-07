@@ -52,8 +52,8 @@ namespace ShopContent.Modell
             }
         }
 
-        private Categories category;
-        public Categories Category { get { return category; } set { category = value; OnPropertyChanged("Category"); } }
+        private Categorys category;
+        public Categorys Category { get { return category; } set { category = value; OnPropertyChanged("Category"); } }
 
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged([CallerMemberName] string prop = "")

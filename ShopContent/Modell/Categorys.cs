@@ -6,7 +6,7 @@ using System.Text;
 
 namespace ShopContent.Modell
 {
-    public class Categories : INotifyPropertyChanged
+    public class Categorys : INotifyPropertyChanged
     {
         private int id;
         public int Id

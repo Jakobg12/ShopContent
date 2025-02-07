@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ShopContent.Classes;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -10,11 +11,12 @@ namespace ShopContent.ViewModell
     public class VMItems : INotifyPropertyChanged
     {
         public ObservableCollection<Context.ItemsContext> Items { get; set; }
-        public Classes.RelayCommand NewItem
+
+        public RelayCommand NewItem
         {
             get
             {
-                return new Classes.RelayCommand(obj =>
+                return new RelayCommand(obj =>
                 {
                     Context.ItemsContext newModell = new Context.ItemsContext(true);
                     Items.Add(newModell);
@@ -22,13 +24,13 @@ namespace ShopContent.ViewModell
                 });
             }
         }
-
         public VMItems() => Items = Context.ItemsContext.AllItems();
+
         public event PropertyChangedEventHandler PropertyChanged;
+
         public void OnPropertyChanged([CallerMemberName] string prop = "")
         {
-            if (PropertyChanged != null)
-                PropertyChanged(this, new PropertyChangedEventArgs(prop));
+            if (PropertyChanged != null) PropertyChanged(this, new PropertyChangedEventArgs(prop));
         }
     }
 }

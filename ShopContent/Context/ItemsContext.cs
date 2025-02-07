@@ -15,15 +15,15 @@ namespace ShopContent.Context
         {
             if (save)
                 Save(true);
-            Category = new Categories();
+            Category = new Categorys();
         }
 
         public static ObservableCollection<ItemsContext> AllItems()
         {
             ObservableCollection<ItemsContext> allItems = new ObservableCollection<ItemsContext>();
-            ObservableCollection<CategoriesContext> allCategories = CategoriesContext.AllCategories();
+            ObservableCollection<CategorysContext> allCategories = CategorysContext.AllCategorys();
             SqlConnection connection;
-            SqlDataReader dataItems = Connection.Query("SELECT * FROM [dbo].[Items]", out connection);
+            SqlDataReader dataItems = Connection.Query("SELECT * FROM Items;", out connection);
             while (dataItems.Read())
             {
                 allItems.Add(new ItemsContext()
@@ -32,9 +32,7 @@ namespace ShopContent.Context
                     Name = dataItems.GetString(1),
                     Price = dataItems.GetDouble(2),
                     Description = dataItems.GetString(3),
-                    Category = dataItems.IsDBNull(4) ?
-                    null :
-                    allCategories.Where(x => x.Id == dataItems.GetInt32(4)).First()
+                    Category = dataItems.IsDBNull(4) ? null : allCategories.Where(x => x.Id == dataItems.GetInt32(4)).First()
                 });
             }
             Connection.CloseConnection(connection);
@@ -43,17 +41,23 @@ namespace ShopContent.Context
 
         public void Save(bool New = false)
         {
-            SqlConnection connection = null;
+            SqlConnection connection;
             if (New)
             {
-                SqlDataReader dataItems = Connection.Query($"INSERT INTO [dbo].[Items](Name, Price, Description) OUTPUT Inserted.Id VALUES (N'{this.Name}' , {this.Price}, N'{this.Description}')", out connection);
+                SqlDataReader dataItems = Connection.Query($"INSERT INTO Items (Name, Price, Description) OUTPUT Inserted.Id VALUES (N'{this.Name}', {this.Price}, N'{this.Description}')", out connection);
                 dataItems.Read();
                 this.Id = dataItems.GetInt32(0);
             }
             else
             {
-                Connection.Query("UPDATE [dbo].[Items] SET " +
-                                 $"Name  = N'{this.Name}', Price = {this.Price}, Description = N'{this.Description}', IdCategory = {this.Category.Id} WHERE Id = {this.Id}", out connection);
+                Connection.Query("UPDATE Items " +
+                    "SET " +
+                    $"Name = N'{this.Name}', " +
+                    $"Price = {this.Price}, " +
+                    $"Description = N'{this.Description}', " +
+                    $"IdCategory = {this.Category.Id} " +
+                    $"WHERE " +
+                    $"Id = {this.Id}", out connection);
             }
             Connection.CloseConnection(connection);
             MainWindow.init.frame.Navigate(MainWindow.init.Main);
@@ -62,7 +66,9 @@ namespace ShopContent.Context
         public void Delete()
         {
             SqlConnection connection;
-            Connection.Query($"DELETE FROM [dbo].[Items] WHERE id = {this.Id}", out connection);
+            Connection.Query("DELETE FROM Items " +
+                "WHERE " +
+                $"Id = {this.Id}", out connection);
             Connection.CloseConnection(connection);
         }
 
@@ -80,7 +86,7 @@ namespace ShopContent.Context
             {
                 return new RelayCommand(obj =>
                 {
-                    Category = CategoriesContext.AllCategories().Where(x => x.Id == this.Category.Id).First();
+                    Category = CategorysContext.AllCategorys().First(x => x.Id == this.Category.Id);
                     Save();
                 });
             }

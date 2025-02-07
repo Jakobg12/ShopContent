@@ -24,7 +24,7 @@ namespace ShopContent.View
             DataContext = new
             {
                 item = Context,
-                categorys = new ViewModell.VMCategories()
+                categorys = new ViewModell.VMCategorys()
             };
         }
     }
